@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from "fs";
 
 class ProductManager {
   constructor() {
@@ -33,7 +33,7 @@ class ProductManager {
 
   getProducts() {
     let contenido = fs.readFileSync(this.path, "utf-8");
-    console.log(JSON.parse(contenido));
+    return JSON.parse(contenido);
   }
 
   getProductById(id) {
@@ -44,9 +44,9 @@ class ProductManager {
     );
 
     if (productoEncontrado) {
-      console.log(productoEncontrado);
+      return productoEncontrado;
     } else {
-      console.error("Producto no encontrado");
+      console.log("Producto no encontrado");
     }
   }
 
@@ -87,53 +87,4 @@ class ProductManager {
   }
 }
 
-// TEST
-
-const productManager = new ProductManager();
-console.log("Instancia creada.");
-
-productManager.addProduct({
-  title: "producto prueba 1",
-  description: "Este es un producto prueba",
-  price: 200,
-  thumbnail: "Sin imagen",
-  code: "abc123",
-  stock: 25,
-});
-
-productManager.addProduct({
-  title: "producto prueba 2",
-  description: "Este es un producto prueba",
-  price: 200,
-  thumbnail: "Sin imagen",
-  code: "abc124",
-  stock: 25,
-});
-
-productManager.addProduct({
-  title: "producto prueba 3",
-  description: "Este es un producto prueba",
-  price: 200,
-  thumbnail: "Sin imagen",
-  code: "abc125",
-  stock: 25,
-});
-
-productManager.getProducts();
-
-productManager.getProductById(1);
-
-productManager.deleteProduct(2);
-
-productManager.getProducts();
-
-productManager.updateProduct(3, {
-  title: "producto prueba 3.1",
-  description: "Este es un producto prueba modificado",
-  price: 201,
-  thumbnail: "Sin imagen todavía",
-  code: "abc126",
-  stock: 24,
-});
-
-productManager.getProducts();
+export default ProductManager;
