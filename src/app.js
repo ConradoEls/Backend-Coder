@@ -32,7 +32,7 @@ app.get("/products/:pid", (req, res) => {
     if (product) {
       res.send({ product });
     } else {
-      res.send({ error: "Producto no encontrado." });
+      res.json({ error: "Producto no existe." });
     }
   } catch (error) {
     console.error(error);
