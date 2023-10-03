@@ -51,6 +51,7 @@ class ProductManager {
   }
 
   updateProduct(id, productUpdated) {
+  
     let newProduct = {
       ...productUpdated,
       id,
