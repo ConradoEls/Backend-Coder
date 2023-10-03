@@ -1,11 +1,19 @@
 import express from "express";
 import ProductManager from "./ProductManager.js";
+import productsRouter from "../routes/products.js";
+import cartsRouter from "../routes/carts.js";
 
+const PORT = 8080;
 const app = express();
 const productManager = new ProductManager();
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = 8080;
+app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
+
+app.use(express.static('../public'))
+
+
 
 app.get("/products", (req, res) => {
   try {
