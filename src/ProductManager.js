@@ -3,20 +3,22 @@ import fs from "fs";
 class ProductManager {
   constructor() {
     this.path = "./products.json";
-    this.products = [];
+    this.products = [JSON.parse(fs.readFileSync(this.path, "utf-8"))];
     this.productIdCounter = 1;
   }
 
   addProduct(product) {
+    // VALIDA EXISTENCIA PRODUCTO EN EL ARRAY PRODUCTS
     if (this.products.some((p) => p.code === product.code)) {
       console.error("El código ya existe.");
       return;
     }
+
+    // VALIDA QUE LOS CAMPOS A CONTINUACIÓN ESTEN CARGADOS
     if (
       !product.title ||
       !product.description ||
       !product.price ||
-      !product.thumbnail ||
       !product.code ||
       !product.stock
     ) {
@@ -24,11 +26,14 @@ class ProductManager {
       return;
     }
 
+    // ASIGNA UN ID AUTOINCREMENTAL
     product.id = this.productIdCounter++;
 
+    // AGREGA EL PRODUCTO AL ARRAY
     this.products.push(product);
 
-    fs.writeFileSync(this.path, JSON.stringify([...this.products]));
+    // CREA UN ARCHIVO .json CON EL CONTENIDO DEL ARRAY DE PRODUCTOS
+    fs.writeFileSync(this.path, JSON.stringify(this.products));
   }
 
   getProducts() {
@@ -51,7 +56,6 @@ class ProductManager {
   }
 
   updateProduct(id, productUpdated) {
-  
     let newProduct = {
       ...productUpdated,
       id,
