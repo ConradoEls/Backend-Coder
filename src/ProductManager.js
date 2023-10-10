@@ -22,8 +22,8 @@ export default class ProductManager {
       return true;
     }
 
-    // LEER EL ARCHIVO products.json
-    // BUSCAR SI EXISTE EL CODIGO
+    // LEE EL ARCHIVO products.json
+    // BUSCA SI EXISTE EL CODIGO
     // SI NO EXISTE, BUSCA EL ULTIMO PRODUCTO DEL ARRAY Y LE ASIGNA UN ID
     const prods = JSON.parse(await fs.readFile(this.path, "utf-8"));
     const findedProduct = prods.find((prod) => prod.code === product.code);
